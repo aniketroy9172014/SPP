@@ -60,14 +60,19 @@ def predict():
     # Predict
     prediction = abs(model.predict(features)[0])
 
-    # Scale the prediction to be out of 10
-    # Assuming your model predicts GPA out of 4.0, scale it accordingly
-    scaled_prediction = (prediction / 4.0) * 10.0
+    # Determine the grade based on the GPA prediction
+    if prediction >= 3.5:
+        grade = 'A'
+    elif 3.0 <= prediction < 3.5:
+        grade = 'B'
+    elif 2.5 <= prediction < 3.0:
+        grade = 'C'
+    elif 2.0 <= prediction < 2.5:
+        grade = 'D'
+    else:
+        grade = 'F'
 
-    # Format the prediction to two decimal places
-    formatted_prediction = "{:.2f}".format(scaled_prediction)
-
-    return render_template('result.html', prediction=formatted_prediction)
+    return render_template('result.html', prediction=grade)
 
 if __name__ == '__main__':
     app.run(debug=True)
