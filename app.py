@@ -52,7 +52,7 @@ def predict():
 
     # Convert other form data to floats
     StudyTimeWeekly = float(data['StudyTimeWeekly'])
-    StudyTimeWeekly/=5
+    StudyTimeWeekly/=8.4
     Absences = float(data['Absences'])
     
     # Prepare input for model
