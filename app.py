@@ -5,7 +5,7 @@ import joblib
 app = Flask(__name__)
 
 # Load the ML model
-model = joblib.load('Mytracker.pkl')
+model = joblib.load('SPP_LinearRegression.pkl')
 
 @app.route('/')
 def index():
@@ -14,10 +14,22 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.form
+    
+    Age = int(data['Age'])
 
     # Convert Gender to integer (male = 0, female = 1)
     gender_value = data['Gender']
     Gender = 0 if gender_value == 'Male' else 1
+
+    # Convert •	Ethnicity to integer
+    Ethnicity_value = data['Ethnicity']
+    Ethnicity_mapping = {
+        'Caucasian': 0,
+        'African American': 1,
+        'Asian': 2,
+        'Other': 3
+    }
+    Ethnicity = Ethnicity_mapping.get(Ethnicity_value, 0)
 
     # Convert ParentalEducation to integer
     education_value = data['ParentalEducation']
@@ -50,13 +62,19 @@ def predict():
     # Convert Sports to integer (No = 0, Yes = 1)
     Sports = 1 if data['Sports'] == 'Yes' else 0
 
+    # Convert Music to integer (No = 0, Yes = 1)
+    Music = 1 if data['Music'] == 'Yes' else 0
+
+    # Convert Volunteering to integer (No = 0, Yes = 1)
+    Volunteering = 1 if data['Volunteering'] == 'Yes' else 0
+
     # Convert other form data to floats
     StudyTimeWeekly = float(data['StudyTimeWeekly'])
-    StudyTimeWeekly/=8.4
+    
     Absences = float(data['Absences'])
     
     # Prepare input for model
-    features = np.array([[Gender, ParentalEducation, StudyTimeWeekly, Absences, Tutoring, ParentalSupport, Extracurricular, Sports]])
+    features = np.array([[Age, Gender, Ethnicity, ParentalEducation, StudyTimeWeekly, Absences, Tutoring, ParentalSupport, Extracurricular, Sports, Music, Volunteering]])
 
     # Predict
     prediction = abs(model.predict(features)[0])
