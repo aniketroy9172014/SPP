@@ -3,20 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Habit Tracker</title>
+    <title>Student Performance Predictor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Study Habit Tracker</h1>
+        <h1 class="title">Student Performance Predictor</h1>
         <form method="POST" action="/predict" class="fade-in-form">
+            <div class="form-group">
+                <label for="Age">Your Age</label>
+                <input type="number" id="Absences" name="Age" class="form-control" required>
+            </div>
+            
             <div class="form-group">
                 <label for="Gender">Gender:</label>
                 <select id="Gender" name="Gender" class="form-control" required>
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Ethnicity">Ethnicity</label>
+                <select id="ParentalEducation" name="Ethnicity" class="form-control" required>
+                    <option value="">Select Ethnicity</option>
+                    <option value="Caucasian">Caucasian</option>
+                    <option value="African American">African American</option>
+                    <option value="Asian">Asian</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
         
@@ -33,8 +49,9 @@
             </div>
 
             <div class="form-group">
-                <label for="StudyTimeWeekly">Study Hours per Week:</label>
-                <input type="number" id="StudyTimeWeekly" name="StudyTimeWeekly" class="form-control" required>
+                <label for="StudyTimeWeekly">Study Hours Weekly:</label>
+                <input type="number" id="StudyTimeWeekly" name="StudyTimeWeekly" class="form-control" min="0" max="20" step="0.5" required>
+                <p>"Enter the total number of hours you dedicate to focused study per week (e.g., completing assignments, revising, or preparing for exams). The input should range from 0 to 20 hours."</p>
             </div>
 
             <div class="form-group">
@@ -76,6 +93,24 @@
                 <label for="Sports">Sports:</label>
                 <select id="Sports" name="Sports" class="form-control" required>
                     <option value="">Select Sports</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Music">Music:</label>
+                <select id="Sports" name="Music" class="form-control" required>
+                    <option value="">Select Music</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Volunteering">Volunteering:</label>
+                <select id="Sports" name="Volunteering" class="form-control" required>
+                    <option value="">Select Volunteering</option>
                     <option value="No">No</option>
                     <option value="Yes">Yes</option>
                 </select>
